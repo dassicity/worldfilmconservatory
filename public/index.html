@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The World Film Conservatory — Catalog</title>
+<title>The World Film Conservatory - Catalog</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -31,7 +31,7 @@ details>summary::-webkit-details-marker{display:none}
 :focus-visible{outline:2px solid var(--stock);outline-offset:2px}
 
 /* full-bleed film strip: sprockets pinned to the viewport edges */
-.strip{min-height:100vh;display:flex}
+.strip{min-height:100vh;min-height:100dvh;display:flex}
 .sprocket{width:var(--sprocket);flex:0 0 var(--sprocket);background:repeating-linear-gradient(180deg,#2c2925 0 12px,#16140f 12px 26px)}
 .col{flex:1;min-width:0;background:var(--page);border-left:1px solid var(--rule);border-right:1px solid var(--rule);display:flex;flex-direction:column}
 
@@ -48,19 +48,24 @@ details>summary::-webkit-details-marker{display:none}
 /* stock band */
 .band{background:var(--stock);color:var(--ink)}
 .band .inner{padding-top:clamp(26px,3.2vw,44px);padding-bottom:clamp(22px,2.6vw,34px)}
-.band .top{display:flex;justify-content:space-between;align-items:flex-end;gap:clamp(20px,3vw,44px);flex-wrap:wrap}
+.band .top{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;column-gap:clamp(20px,3vw,56px)}
+.band .kicker,.band h1{grid-column:1/-1}
 .band .kicker{font-family:var(--mono);font-size:clamp(9px,.8vw,11px);letter-spacing:.26em}
 .band h1{margin:clamp(10px,1.2vw,16px) 0 0;font-size:clamp(38px,5.4vw,86px);font-weight:700;letter-spacing:-.03em;line-height:.96}
 .band .stand{margin:clamp(10px,1.2vw,16px) 0 0;font-family:var(--serif);font-size:clamp(16px,1.4vw,20px);line-height:1.55;color:var(--ink-soft);max-width:64ch}
-.band .counts{font-family:var(--mono);font-size:clamp(9px,.8vw,10.5px);letter-spacing:.14em;line-height:2.1;text-align:right;color:#3d3410;white-space:nowrap}
+.band .counts{font-family:var(--mono);display:grid;grid-template-columns:auto auto;gap:2px clamp(8px,1vw,14px);align-content:end;font-size:clamp(9px,.8vw,10.5px);letter-spacing:.12em;line-height:1.5;color:#3d3410;white-space:nowrap}
+.band .counts>div{display:contents}
+.band .counts dt{text-align:right;font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink)}
+.band .counts dd{margin:0;text-align:left;color:#3d3410}
 .band .legend{display:flex;gap:clamp(14px,2.4vw,30px);margin-top:clamp(16px,2vw,22px);border-top:1px solid rgba(20,18,12,.28);padding-top:13px;font-family:var(--mono);font-size:clamp(8.5px,.78vw,10px);letter-spacing:.14em;flex-wrap:wrap}
 
 /* tab strip */
 .tabs{border-bottom:1px solid var(--rule);background:var(--panel)}
 .tabs .inner{padding-left:0;padding-right:0}
-.tabs-scroll{display:flex;overflow-x:auto;scrollbar-width:none;font-family:var(--mono);font-size:clamp(8.5px,.78vw,10px);letter-spacing:.16em;justify-content:safe center}
+.tabs-scroll{--fl:0px;--fr:0px;display:flex;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;overscroll-behavior-x:contain;font-family:var(--mono);font-size:clamp(8.5px,.78vw,10px);letter-spacing:.16em;justify-content:safe center}
+.tabs-scroll.sx{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 var(--fl),#000 calc(100% - var(--fr)),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 var(--fl),#000 calc(100% - var(--fr)),transparent 100%)}
 .tabs-scroll::-webkit-scrollbar{display:none}
-.tabs-scroll button{padding:13px clamp(12px,1.6vw,22px);color:var(--text-4);white-space:nowrap;letter-spacing:inherit;min-height:44px}
+.tabs-scroll button{flex:0 0 auto;scroll-snap-align:start;padding:13px clamp(12px,1.6vw,22px);color:var(--text-4);white-space:nowrap;letter-spacing:inherit;min-height:44px}
 .tabs-scroll button:hover{color:var(--text)}
 .tabs-scroll button.active{color:var(--ink);background:var(--stock)}
 
@@ -78,7 +83,7 @@ details>summary::-webkit-details-marker{display:none}
 .search input::placeholder{color:var(--text-5)}
 .search input:focus{outline:none;border-color:var(--stock)}
 
-/* shelf — responsive grid of film-can panels */
+/* shelf - responsive grid of film-can panels */
 .shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(480px,100%),1fr));gap:14px;margin-top:20px}
 .shelf-row{display:flex;flex-direction:column;gap:10px;padding:18px;background:var(--panel);border:1px solid var(--rule)}
 .shelf-row:hover{border-color:var(--rule-strong)}
@@ -113,13 +118,14 @@ details>summary::-webkit-details-marker{display:none}
 .mods{display:flex;flex-direction:column;gap:12px;margin-top:16px}
 .mod summary{display:flex;gap:clamp(12px,1.6vw,18px);align-items:baseline;padding:14px 16px;background:var(--panel);border:1px solid var(--rule);min-height:44px}
 .mod summary:hover,.mod[open] summary{border-color:var(--rule-strong)}
+.mod summary:focus-visible{outline:2px solid var(--stock);outline-offset:-3px}
 .mod .mcode{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;width:56px;flex:0 0 56px}
 .y1 .mod .mcode,.y0 .mod .mcode{color:var(--stock)}
 .y2 .mod .mcode{color:var(--daylight)}
 .mod .mtitle{font-size:clamp(15.5px,1.5vw,19px);font-weight:600;flex:1;letter-spacing:-.01em}
 .mod .mmeta{font-family:var(--mono);font-size:9.5px;color:var(--text-5);white-space:nowrap}
 .mod .topics{padding:6px 16px 16px clamp(16px,7vw,90px)}
-.mod .topics li{list-style:none;font-family:var(--serif);font-size:16px;line-height:1.74;color:var(--text-3);padding:9px 0;border-bottom:1px dotted var(--rule-soft)}
+.mod .topics li{list-style:none;font-family:var(--serif);font-size:16px;line-height:1.74;color:var(--text-3);padding:9px 0;border-bottom:1px dotted var(--rule-soft);max-width:74ch}
 .mod .topics li:last-child{border-bottom:none}
 
 .practicum-row{margin-top:26px;border-top:1px solid var(--rule);padding-top:16px}
@@ -133,7 +139,7 @@ details>summary::-webkit-details-marker{display:none}
 .result-mod .rm-title{font-size:17px;font-weight:600}
 .result-mod .rm-title .rmc{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;color:var(--text-4);font-weight:400;margin-right:10px}
 .result-mod ul{margin-top:6px}
-.result-mod li{list-style:none;font-family:var(--serif);font-size:15.5px;line-height:1.7;color:var(--text-3);padding:6px 0;border-bottom:1px dotted var(--rule-soft)}
+.result-mod li{list-style:none;font-family:var(--serif);font-size:15.5px;line-height:1.7;color:var(--text-3);padding:6px 0;border-bottom:1px dotted var(--rule-soft);max-width:74ch}
 .result-mod li:last-child{border-bottom:none}
 mark{background:none;color:var(--stock)}
 .no-results{margin-top:20px;font-family:var(--serif);font-size:16px;color:var(--text-3)}
@@ -143,15 +149,60 @@ mark{background:none;color:var(--stock)}
 .endbar .inner{display:flex;justify-content:space-between;gap:18px;padding-top:28px;padding-bottom:28px;flex-wrap:wrap}
 .endbar a{white-space:nowrap}
 
+/* Bug 3 — the mono scale caps at 1282px while the display type keeps growing
+   to its own cap at ~1593px; lift the label ceiling over that band and beyond. */
+@media(min-width:1500px){
+  .status{font-size:11px}
+  .band .kicker{font-size:12px}
+  .band .counts{font-size:11.5px}
+  .band .legend{font-size:11px}
+  .tabs-scroll{font-size:11px}
+  .zmark,.zhead .sub{font-size:10.5px}
+  .shelf-row .head,.shelf-row .foot{font-size:10.5px}
+  .built-line{font-size:10px}
+  .dept-head .open-track{font-size:11px}
+  .year-head .yl,.year-head .yt{font-size:11px}
+  .mod .mcode,.mod .mmeta{font-size:10.5px}
+  .endbar{font-size:10.5px}
+}
+@media(max-width:1100px){
+  :root{--gutter:clamp(18px,2.8vw,34px)}
+  .band .top{gap:clamp(18px,2.4vw,34px)}
+  .shelf{grid-template-columns:repeat(auto-fill,minmax(min(420px,100%),1fr))}
+}
+@media(max-width:900px){
+  .band .top{grid-template-columns:minmax(0,1fr)}
+  .band .counts{grid-template-columns:none;display:flex;flex-wrap:wrap;gap:4px clamp(12px,3vw,20px);align-content:start;white-space:normal;margin-top:clamp(14px,2.5vw,20px);padding-top:14px;border-top:1px solid rgba(20,18,12,.28)}
+  .band .counts>div{display:flex;align-items:baseline;gap:.45em}
+  .band .counts dt{text-align:left}
+  .shelf{grid-template-columns:1fr}
+}
 @media(max-width:760px){
   :root{--sprocket:12px}
-  .band .top{align-items:flex-start;flex-direction:column}
-  .band .counts{display:flex;gap:16px;text-align:left;line-height:1.6;white-space:normal;flex-wrap:wrap}
   .tabs-scroll{justify-content:flex-start}
   .mod .topics{padding-left:16px}
+  .dept-head{gap:16px}
+  .search input{font-size:12.5px}
+}
+@media(max-width:560px){
+  :root{--gutter:16px}
+  .band .stand{font-size:16px}
+  .zone>.inner{padding-top:22px;padding-bottom:22px}
+  .shelf-row{padding:15px}
+  .shelf-row .foot{flex-direction:column;align-items:flex-start;gap:8px}
+  .mod summary{gap:10px;padding:13px 13px}
+  .mod .mcode{width:46px;flex:0 0 46px}
+  .mod .mmeta{display:none}
+  .year-head{gap:6px}
+  .dept-head .open-track{width:100%;justify-content:center}
+  .endbar .inner{flex-direction:column;gap:10px}
 }
 @media(max-width:420px){
+  :root{--sprocket:10px}
   .shelf{grid-template-columns:1fr}
+  .mod summary{gap:9px}
+  .mod .mcode{width:42px;flex:0 0 42px}
+  .status .inner{gap:6px 12px}
 }
 </style>
 </head>
@@ -167,12 +218,10 @@ mark{background:none;color:var(--stock)}
 
     <div class="band"><div class="inner">
       <div class="top">
-        <div>
-          <div class="kicker">PROSPECTUS · TWO-YEAR PROGRAM · WORLDWIDE SCOPE MANDATORY</div>
-          <h1>The World Film Conservatory</h1>
-          <p class="stand">A complete film school on the shelf: a mandatory Common Core and ten craft departments, with the world's cinemas — Bombay, Tehran, Hong Kong, Moscow, Copenhagen — taught inside every discipline, never beside it. All eleven tracks are built and readable end to end. The Conservatory is complete.</p>
-        </div>
-        <div class="counts" id="counts"></div>
+        <div class="kicker">PROSPECTUS · TWO-YEAR PROGRAM · WORLDWIDE SCOPE MANDATORY</div>
+        <h1>The World Film Conservatory</h1>
+        <p class="stand">A complete film school on the shelf: a mandatory Common Core and ten craft departments, with the world's cinemas - Bombay, Tehran, Hong Kong, Moscow, Copenhagen - taught inside every discipline, never beside it. All eleven tracks are built and readable end to end. The Conservatory is complete.</p>
+        <dl class="counts" id="counts"></dl>
       </div>
       <div class="legend">
         <span>YEAR 1 · 400T TUNGSTEN</span>
@@ -185,7 +234,7 @@ mark{background:none;color:var(--stock)}
 
     <div class="zone search"><div class="inner">
       <div class="zmark">▸ SEARCH THE CATALOG</div>
-      <input id="search" type="search" placeholder="ALL TOPICS — MONTAGE, RAGA, LED VOLUME, SUBTEXT, WIRE-FU…" aria-label="Search all topics">
+      <input id="search" type="search" placeholder="ALL TOPICS - MONTAGE, RAGA, LED VOLUME, SUBTEXT, WIRE-FU…" aria-label="Search all topics">
     </div></div>
 
     <div class="zone" id="shelf-zone"><div class="inner">
@@ -212,19 +261,19 @@ mark{background:none;color:var(--stock)}
 
 <script>
 /* =====================================================================
-   CURRICULUM DATA — ratified structure
+   CURRICULUM DATA - ratified structure
 ===================================================================== */
 const CURRICULUM = [
 
 { id:"core", code:"CORE", name:"Common Core", short:"Common Core",
-  rationale:"Taken by every student in every track, both years. The shared cinematic literacy — history, theory, film language, analysis, professional grounding — that lets all ten departments speak one language.",
+  rationale:"Taken by every student in every track, both years. The shared cinematic literacy - history, theory, film language, analysis, professional grounding - that lets all ten departments speak one language.",
   years:[
-    { label:"All Students — Both Years", temp:"PROJECTOR · CONTINUOUS", cls:"y0", modules:[
+    { label:"All Students - Both Years", temp:"PROJECTOR · CONTINUOUS", cls:"y0", modules:[
       { code:"CC-1", title:"Global Film History (chronological + polycentric)", topics:[
         "Pre-cinema & the birth of the medium: optical toys, Muybridge, Lumière actualités, Méliès, Edison",
         "The benshi narrator tradition in Japanese silent exhibition",
         "Silent-era grammar: Griffith & continuity; German Expressionism; the Soviet montage school",
-        "Coming of sound; studio systems worldwide — Hollywood, Shochiku/Toho, India's studio era, Shanghai",
+        "Coming of sound; studio systems worldwide - Hollywood, Shochiku/Toho, India's studio era, Shanghai",
         "Post-war ruptures: Italian Neorealism, French New Wave, Japanese New Wave, New German Cinema, New Hollywood",
         "Indian parallel cinema & popular/masala cinema",
         "Iranian New Wave; African cinema (Sembène onward) & Nollywood",
@@ -251,7 +300,7 @@ const CURRICULUM = [
         "Comparative analysis across traditions & eras",
         "Writing about film; building a critical vocabulary" ]},
       { code:"CC-5", title:"Professional Foundations", topics:[
-        "Set etiquette, department structure — who does what on set",
+        "Set etiquette, department structure - who does what on set",
         "Safety, ethics & on-set conduct; unions & guilds",
         "Copyright, chain of title, basic contracts & rights",
         "The festival ecosystem & distribution landscape (overview)" ]}
@@ -261,9 +310,9 @@ const CURRICULUM = [
 },
 
 { id:"dir", code:"DEPT 01", name:"Directing", short:"Directing",
-  rationale:"Organized by the escalating narrative and human problems a director must solve — from the single shot, to the scene, to performance, to the whole film, to personal style.",
+  rationale:"Organized by the escalating narrative and human problems a director must solve - from the single shot, to the scene, to performance, to the whole film, to personal style.",
   years:[
-    { label:"Year 1 — Foundations of the Director's Craft", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
+    { label:"Year 1 - Foundations of the Director's Craft", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
       { code:"D-1", title:"The Director's Role & Vision", topics:[
         "Interpreting a script; theme, premise & tone",
         "The director's statement",
@@ -294,7 +343,7 @@ const CURRICULUM = [
         "Transitions",
         "Rhythm within the scene" ]}
     ]},
-    { label:"Year 2 — Mastery, Style & the Whole Film", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
+    { label:"Year 2 - Mastery, Style & the Whole Film", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
       { code:"D-7", title:"Directing Actors II", topics:[
         "Working with non-professionals: the Neorealist & Iranian tradition",
         "Ensemble work & improvisation",
@@ -332,9 +381,9 @@ const CURRICULUM = [
 },
 
 { id:"cl", code:"DEPT 02", name:"Cinematography & Lighting", short:"Cine & Lighting",
-  rationale:"Ratified as one unified department — the shared spine locked. Light and lens are taught as inseparable halves of image-making: one progression from the physics of light and optics, through capture, to movement, mood and visual authorship, ending in both the DP's and the gaffer's professional craft.",
+  rationale:"Ratified as one unified department - the shared spine locked. Light and lens are taught as inseparable halves of image-making: one progression from the physics of light and optics, through capture, to movement, mood and visual authorship, ending in both the DP's and the gaffer's professional craft.",
   years:[
-    { label:"Year 1 — Light & Capture: Foundations", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
+    { label:"Year 1 - Light & Capture: Foundations", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
       { code:"CL-1", title:"History of the Image & the Departments", topics:[
         "Evolution of cinematography: film to digital",
         "The DP's role; camera department hierarchy",
@@ -354,7 +403,7 @@ const CURRICULUM = [
         "False color, waveform & vectorscope" ]},
       { code:"CL-5", title:"Film & Digital Capture", topics:[
         "Film stocks & formats: 16mm, 35mm, 65mm/IMAX",
-        "Digital sensors, codecs, RAW, log — taking ownership of your sensor",
+        "Digital sensors, codecs, RAW, log - taking ownership of your sensor",
         "Resolution & aspect-ratio choices as storytelling" ]},
       { code:"CL-6", title:"Lighting Instruments", topics:[
         "Tungsten, HMI, fluorescent",
@@ -379,7 +428,7 @@ const CURRICULUM = [
         "ACES & the ASC CDL",
         "Gel color vs. fixture color" ]}
     ]},
-    { label:"Year 2 — Movement, Mood & Authorship", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
+    { label:"Year 2 - Movement, Mood & Authorship", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
       { code:"CL-11", title:"Camera Movement & Support", topics:[
         "Dolly, crane, Steadicam, gimbal, handheld, drone/aerial",
         "The moving master",
@@ -423,9 +472,9 @@ const CURRICULUM = [
 },
 
 { id:"snd", code:"DEPT 03", name:"Sound", short:"Sound",
-  rationale:"Taught as a full pipeline — production recording → post → mix → music — and as theory (Chion). Covers what many schools split into 'Sound Recording & Design' plus 'Composing for Film'.",
+  rationale:"Taught as a full pipeline - production recording → post → mix → music - and as theory (Chion). Covers what many schools split into 'Sound Recording & Design' plus 'Composing for Film'.",
   years:[
-    { label:"Year 1 — Capturing & Understanding Sound", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
+    { label:"Year 1 - Capturing & Understanding Sound", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
       { code:"S-1", title:"The Physics & Perception of Sound", topics:[
         "Acoustics; frequency & amplitude",
         "Psychoacoustics",
@@ -444,11 +493,11 @@ const CURRICULUM = [
         "Editing fundamentals",
         "Sync" ]},
       { code:"S-5", title:"Dialogue", topics:[
-        "Dialogue editing — the invisible art",
+        "Dialogue editing - the invisible art",
         "ADR / looping",
         "Cleaning & smoothing tracks" ]}
     ]},
-    { label:"Year 2 — Designing, Mixing & Scoring", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
+    { label:"Year 2 - Designing, Mixing & Scoring", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
       { code:"S-6", title:"Sound Design", topics:[
         "Building soundscapes; the sound-effects library",
         "Designed vs. recorded FX; worldizing",
@@ -461,11 +510,11 @@ const CURRICULUM = [
         "Re-recording mixing",
         "Dolby Atmos & immersive / surround formats",
         "M&E and deliverables for international distribution" ]},
-      { code:"S-9", title:"Music for Film I — The Composer's Craft", topics:[
+      { code:"S-9", title:"Music for Film I - The Composer's Craft", topics:[
         "Spotting sessions; working with the director",
         "Diegetic vs. non-diegetic; screen music",
         "Leitmotif; temp scores" ]},
-      { code:"S-10", title:"Music for Film II — Traditions & Techniques", topics:[
+      { code:"S-10", title:"Music for Film II - Traditions & Techniques", topics:[
         "Orchestral & electronic scoring",
         "Indian film music: the music director, raga-to-rasa matching, playback singing, pre-recorded song picturization",
         "Jazz & world-music scoring",
@@ -487,14 +536,14 @@ const CURRICULUM = [
 { id:"edit", code:"DEPT 04", name:"Editing & Post", short:"Editing",
   rationale:"From the theory of the cut, to the mechanics, to the emotional and structural craft, to finishing. Color grading folds in as a Year-2 specialization.",
   years:[
-    { label:"Year 1 — The Cut", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
+    { label:"Year 1 - The Cut", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
       { code:"E-1", title:"History & Theory of Editing", topics:[
         "From splicing to non-linear",
         "Soviet montage theory: Eisenstein's intellectual montage, Pudovkin, Vertov",
         "The Kuleshov effect",
         "Continuity editing vs. montage" ]},
       { code:"E-2", title:"Why Cuts Work", topics:[
-        "Murch's Rule of Six — emotion over technique",
+        "Murch's Rule of Six - emotion over technique",
         "The blink as cut-point",
         "Eye-trace" ]},
       { code:"E-3", title:"The NLE & Post Workflow", topics:[
@@ -511,7 +560,7 @@ const CURRICULUM = [
         "Parallel action & cross-cutting",
         "The dramatic build" ]}
     ]},
-    { label:"Year 2 — Shaping the Film", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
+    { label:"Year 2 - Shaping the Film", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
       { code:"E-6", title:"Editing Performance", topics:[
         "Selecting takes; building a performance",
         "Reaction shots",
@@ -550,9 +599,9 @@ const CURRICULUM = [
 },
 
 { id:"pd", code:"DEPT 05", name:"Production Design & Art", short:"Prod. Design",
-  rationale:"The visual world-building department — design, set, props, costume, makeup, decoration — from concept to execution, split from Producing per the AFI / La Fémis / Beijing model.",
+  rationale:"The visual world-building department - design, set, props, costume, makeup, decoration - from concept to execution, split from Producing per the AFI / La Fémis / Beijing model.",
   years:[
-    { label:"Year 1 — Foundations of Visual World-Building", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
+    { label:"Year 1 - Foundations of Visual World-Building", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
       { code:"PD-1", title:"The Designer's Role & Vision", topics:[
         "Reading the script for design; the visual concept",
         "Art department hierarchy: designer, art director, set decorator, props, construction" ]},
@@ -577,7 +626,7 @@ const CURRICULUM = [
         "Set decoration; greens",
         "Scenic finishes" ]}
     ]},
-    { label:"Year 2 — Specialization & Execution", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
+    { label:"Year 2 - Specialization & Execution", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
       { code:"PD-7", title:"Costume Design", topics:[
         "Script breakdown for character",
         "Silhouette & period; the costume as storytelling",
@@ -610,16 +659,16 @@ const CURRICULUM = [
 },
 
 { id:"prod", code:"DEPT 06", name:"Producing & Production Mgmt", short:"Producing",
-  rationale:"Creative producing plus line producing / production management, organized chronologically along the life-cycle of a production — development to distribution, folding in the film business and festival strategy.",
+  rationale:"Creative producing plus line producing / production management, organized chronologically along the life-cycle of a production - development to distribution, folding in the film business and festival strategy.",
   years:[
-    { label:"Year 1 — Development & Physical Production", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
+    { label:"Year 1 - Development & Physical Production", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
       { code:"P-1", title:"The Producer's Role & Types", topics:[
         "Creative producer, executive producer, line producer, UPM",
         "The development judgment: is this worth your soul, money & time" ]},
       { code:"P-2", title:"Development", topics:[
         "Finding & optioning material",
         "Script development; working with writers",
-        "The pitch; packaging — attaching director & cast" ]},
+        "The pitch; packaging - attaching director & cast" ]},
       { code:"P-3", title:"Film Finance", topics:[
         "Studio, equity, debt, pre-sales, gap financing",
         "Tax incentives & rebates; grants; crowdfunding",
@@ -637,7 +686,7 @@ const CURRICULUM = [
         "Call sheets, movement orders, production paperwork",
         "Managing cast & crew; locations & permits; logistics" ]}
     ]},
-    { label:"Year 2 — From Set to Market", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
+    { label:"Year 2 - From Set to Market", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
       { code:"P-7", title:"Physical Production Management", topics:[
         "Running the set; the AD department relationship",
         "Contingency & problem-solving",
@@ -669,9 +718,9 @@ const CURRICULUM = [
 },
 
 { id:"write", code:"DEPT 07", name:"Screenwriting", short:"Screenwriting",
-  rationale:"From story fundamentals through advanced and alternative structures and global storytelling forms — teaching multiple paradigms and their critiques, never a single formula.",
+  rationale:"From story fundamentals through advanced and alternative structures and global storytelling forms - teaching multiple paradigms and their critiques, never a single formula.",
   years:[
-    { label:"Year 1 — Story Fundamentals", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
+    { label:"Year 1 - Story Fundamentals", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
       { code:"W-1", title:"The Elements of Story", topics:[
         "Character, desire & objective, conflict, stakes, theme, premise",
         "Aristotle: beginning, middle, end" ]},
@@ -695,10 +744,10 @@ const CURRICULUM = [
         "Economy",
         "The contained idea" ]}
     ]},
-    { label:"Year 2 — Advanced, Alternative & Global Forms", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
+    { label:"Year 2 - Advanced, Alternative & Global Forms", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
       { code:"W-7", title:"Structure II", topics:[
         "Alternative & non-linear structures",
-        "Archplot / Miniplot / Antiplot — the story triangle",
+        "Archplot / Miniplot / Antiplot - the story triangle",
         "The Hero's Journey & its critiques",
         "Truby's 22 steps; multi-protagonist & network narratives" ]},
       { code:"W-8", title:"Genre", topics:[
@@ -725,11 +774,11 @@ const CURRICULUM = [
 },
 
 { id:"act", code:"DEPT 08", name:"Screen Acting", short:"Acting",
-  rationale:"Organized by 'method school' — a survey of the major techniques — then by camera-specific application and the business. The pedagogy of the actor's own instrument.",
+  rationale:"Organized by 'method school' - a survey of the major techniques - then by camera-specific application and the business. The pedagogy of the actor's own instrument.",
   years:[
-    { label:"Year 1 — The Instrument & the Methods", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
+    { label:"Year 1 - The Instrument & the Methods", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
       { code:"A-1", title:"Foundations", topics:[
-        "Relaxation, concentration, observation — the actor's instrument",
+        "Relaxation, concentration, observation - the actor's instrument",
         "Living truthfully under imaginary circumstances" ]},
       { code:"A-2", title:"The Stanislavski System", topics:[
         "Objectives & actions; the 'magic if'",
@@ -750,7 +799,7 @@ const CURRICULUM = [
         "Analyzing a scene for action",
         "Building a role from text" ]}
     ]},
-    { label:"Year 2 — Acting for the Camera & the Profession", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
+    { label:"Year 2 - Acting for the Camera & the Profession", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
       { code:"A-7", title:"On-Camera Technique", topics:[
         "The difference from stage: scale & truthfulness for the lens",
         "Hitting marks, eyelines, continuity for the actor",
@@ -782,16 +831,16 @@ const CURRICULUM = [
 },
 
 { id:"doc", code:"DEPT 09", name:"Documentary", short:"Documentary",
-  rationale:"Its own track — organized by the modes of documentary and the specific ethical and production realities of non-fiction.",
+  rationale:"Its own track - organized by the modes of documentary and the specific ethical and production realities of non-fiction.",
   years:[
-    { label:"Year 1 — The Non-Fiction Foundation", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
+    { label:"Year 1 - The Non-Fiction Foundation", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
       { code:"DOC-1", title:"History & Traditions", topics:[
         "Flaherty; Grierson & the British movement",
         "The city symphony; Vertov's kino-pravda",
         "Propaganda & the wartime documentary" ]},
       { code:"DOC-2", title:"The Modes (Nichols)", topics:[
         "Poetic, expository, observational, participatory, reflexive, performative",
-        "How films mix modes — the dominant mode" ]},
+        "How films mix modes - the dominant mode" ]},
       { code:"DOC-3", title:"Direct Cinema vs. Cinéma Vérité", topics:[
         "Observational fly-on-the-wall: Wiseman, Pennebaker, the Maysles",
         "Participatory & interactive: Rouch & Morin's Chronicle of a Summer",
@@ -804,7 +853,7 @@ const CURRICULUM = [
         "Interview craft; vérité shooting",
         "Archival & reenactment" ]}
     ]},
-    { label:"Year 2 — Authorship, Ethics & Form", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
+    { label:"Year 2 - Authorship, Ethics & Form", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
       { code:"DOC-6", title:"Documentary Editing", topics:[
         "Finding structure in footage",
         "Building character & arc from reality",
@@ -835,9 +884,9 @@ const CURRICULUM = [
 },
 
 { id:"av", code:"DEPT 10", name:"Animation & VFX", short:"Anim & VFX",
-  rationale:"Combined track — both are pipeline-based crafts. From principles, through 2D / 3D / stop-motion, to the VFX pipeline and virtual production; traditional and computer-based techniques together.",
+  rationale:"Combined track - both are pipeline-based crafts. From principles, through 2D / 3D / stop-motion, to the VFX pipeline and virtual production; traditional and computer-based techniques together.",
   years:[
-    { label:"Year 1 — Principles & Craft", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
+    { label:"Year 1 - Principles & Craft", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
       { code:"AV-1", title:"History & Principles of Animation", topics:[
         "The 12 principles",
         "From optical toys through cel, Disney, anime, Eastern European & computer animation" ]},
@@ -858,7 +907,7 @@ const CURRICULUM = [
         "Performance; acting for animators",
         "Lip sync" ]}
     ]},
-    { label:"Year 2 — The VFX Pipeline & Production", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
+    { label:"Year 2 - The VFX Pipeline & Production", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
       { code:"AV-7", title:"The VFX Pipeline", topics:[
         "Previz; plates",
         "Matchmoving & tracking",
@@ -878,7 +927,7 @@ const CURRICULUM = [
       { code:"AV-11", title:"Virtual Production", topics:[
         "LED volumes; real-time engines (Unreal)",
         "Digital humans",
-        "On-set virtual production — the convergence with cinematography & lighting" ]},
+        "On-set virtual production - the convergence with cinematography & lighting" ]},
       { code:"AV-12", title:"Animation / VFX in the Industry", topics:[
         "The studio pipeline & roles; the demo reel",
         "Supervising; budgeting VFX",
@@ -890,7 +939,7 @@ const CURRICULUM = [
 ];
 
 /* =====================================================================
-   ROUTING — track pages live as flat files beside this catalog.
+   ROUTING - track pages live as flat files beside this catalog.
    Drop a new track file into the directory and (when hosted) the
    shelf detects it and lights the link automatically.
 ===================================================================== */
@@ -909,7 +958,7 @@ const FILES = {
 };
 const BUILT = { core:true, write:true, dir:true, cl:true, snd:true, edit:true, pd:true, prod:true, act:true, doc:true, av:true };   /* shipped tracks; fetch check upgrades the rest */
 
-/* per-track exposure — what is actually on the shelf, counted from the built files */
+/* per-track exposure - what is actually on the shelf, counted from the built files */
 const STATS = {
   core:{ch:30,films:190,res:160,line:'DEVELOP AND PRINT'},
   write:{ch:33,films:103,res:165,line:'DEVELOP AND PRINT'},
@@ -943,8 +992,10 @@ function renderCounts(){
   CURRICULUM.forEach(d=>{const c=counts(d);mods+=c.m;tops+=c.t;});
   let chs=0,flm=0;
   Object.keys(STATS).forEach(k=>{if(BUILT[k]){chs+=STATS[k].ch;flm+=STATS[k].films;}});
+  const pair=(n,l)=>`<div><dt>${n}</dt><dd>${l}</dd></div>`;
   document.getElementById('counts').innerHTML=
-    `<div>${CURRICULUM.length-1} DEPARTMENTS + CORE</div><div>${mods} MODULES</div><div>${tops} TOPICS</div><div>${chs} CHAPTERS BUILT</div><div>${flm} FILMS SCREENED</div><div>2 YEARS</div>`;
+    pair(CURRICULUM.length-1,'DEPARTMENTS + CORE')+pair(mods,'MODULES')+pair(tops,'TOPICS')
+    +pair(chs,'CHAPTERS BUILT')+pair(flm,'FILMS SCREENED');
   const built=Object.keys(BUILT).filter(k=>BUILT[k]).length;
   document.getElementById('shelf-sub').textContent=`${CURRICULUM.length} TRACKS · ${mods} MODULES · ${built} IN THE CAN`;
 }
@@ -960,6 +1011,7 @@ function renderTabs(){
 tabsEl.addEventListener('click',e=>{
   const b=e.target.closest('button');if(!b)return;
   activeId=b.dataset.id;searchEl.value='';renderTabs();renderDept();
+  if(typeof tabsFade==='function')tabsFade();
   document.getElementById('dept-zone').scrollIntoView({block:'start'});
 });
 
@@ -984,6 +1036,7 @@ function renderShelf(){
 shelfEl.addEventListener('click',e=>{
   const b=e.target.closest('.name');if(!b)return;
   activeId=b.dataset.id;searchEl.value='';renderTabs();renderDept();
+  if(typeof tabsFade==='function')tabsFade();
   document.getElementById('dept-zone').scrollIntoView({block:'start'});
 });
 
@@ -1039,9 +1092,9 @@ function renderSearch(q){
         }
       });
     });
-    if(groups)html+=`<div class="result-group"><div class="rg-head">${d.code} · ${esc(d.name).toUpperCase()} ${BUILT[d.id]?`— <a href="${FILES[d.id]}">OPEN ↗</a>`:''}</div>${groups}</div>`;
+    if(groups)html+=`<div class="result-group"><div class="rg-head">${d.code} · ${esc(d.name).toUpperCase()} ${BUILT[d.id]?`- <a href="${FILES[d.id]}">OPEN ↗</a>`:''}</div>${groups}</div>`;
   });
-  viewEl.innerHTML=html||`<p class="no-results">Nothing in the catalog matches. Try a broader reel — “montage”, “song”, “light”.</p>`;
+  viewEl.innerHTML=html||`<p class="no-results">Nothing in the catalog matches. Try a broader reel - “montage”, “song”, “light”.</p>`;
 }
 function hl(t,q){
   const s=esc(t);const i=t.toLowerCase().indexOf(q);
@@ -1054,7 +1107,7 @@ searchEl.addEventListener('input',()=>{
   else{deptMark.textContent=`▸ DEPARTMENT · ${CURRICULUM.find(x=>x.id===activeId).name.toUpperCase()}`;renderDept();}
 });
 
-/* progressive route detection — lights shelf links when files appear */
+/* progressive route detection - lights shelf links when files appear */
 if(location.protocol.startsWith('http')){
   Object.entries(FILES).forEach(([id,f])=>{
     if(BUILT[id])return;
@@ -1064,7 +1117,23 @@ if(location.protocol.startsWith('http')){
   });
 }
 
+/* horizontal scrollers advertise that they scroll */
+function scrollFade(el){
+  if(!el)return function(){};
+  const upd=()=>{
+    const max=el.scrollWidth-el.clientWidth,on=max>2;
+    el.classList.toggle('sx',on);
+    el.style.setProperty('--fl',on&&el.scrollLeft>2?'26px':'0px');
+    el.style.setProperty('--fr',on&&el.scrollLeft<max-2?'26px':'0px');
+  };
+  upd();
+  el.addEventListener('scroll',upd,{passive:true});
+  addEventListener('resize',upd,{passive:true});
+  return upd;
+}
+
 renderCounts();renderExposed();renderTabs();renderShelf();renderDept();
+const tabsFade=scrollFade(tabsEl);
 </script>
 </body>
 </html>
