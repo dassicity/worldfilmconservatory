@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The World Film Conservatory — Catalog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --stock:#ffc20e; --daylight:#cfd8dd;
+  --ink:#14120c; --ink-soft:#453a10;
+  --page:#211f1c; --page-alt:#1a1815; --panel:#1c1a17; --well:#14120f; --desk:#17150f;
+  --rule:#35322c; --rule-soft:#3f3b34; --rule-strong:#4a4437;
+  --text:#ece7dd; --text-2:#bfb8aa; --text-3:#b6afa2; --text-4:#8d8577; --text-5:#6f6859; --text-6:#5f594e;
+  --quote:#f0e2bb;
+  --serif:Spectral,Georgia,serif; --sans:Archivo,Helvetica,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --sprocket:26px;
+  --gutter:clamp(20px,3.4vw,48px);
+  --measure:1160px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--desk);color:var(--text);font-family:var(--sans)}
+a{color:var(--stock);text-decoration:none}
+a:hover{color:#ffd75c;text-decoration:underline}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+details>summary{list-style:none;cursor:pointer}
+details>summary::-webkit-details-marker{display:none}
+:focus-visible{outline:2px solid var(--stock);outline-offset:2px}
+
+/* full-bleed film strip: sprockets pinned to the viewport edges */
+.strip{min-height:100vh;display:flex}
+.sprocket{width:var(--sprocket);flex:0 0 var(--sprocket);background:repeating-linear-gradient(180deg,#2c2925 0 12px,#16140f 12px 26px)}
+.col{flex:1;min-width:0;background:var(--page);border-left:1px solid var(--rule);border-right:1px solid var(--rule);display:flex;flex-direction:column}
+
+/* centered reading measure inside full-width chrome */
+.inner{width:100%;max-width:var(--measure);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+
+/* status bar */
+.status{border-bottom:1px solid var(--rule);background:var(--page-alt);font-family:var(--mono);font-size:clamp(8.5px,.75vw,10px);letter-spacing:.18em;color:var(--text-4)}
+.status .inner{display:flex;justify-content:space-between;align-items:center;gap:14px;padding-top:14px;padding-bottom:14px;flex-wrap:wrap}
+.status .l,.status .r{display:flex;gap:clamp(12px,1.6vw,24px);align-items:center;flex-wrap:wrap}
+.status .brand{color:var(--stock)}
+.status .lit{color:var(--text)}
+
+/* stock band */
+.band{background:var(--stock);color:var(--ink)}
+.band .inner{padding-top:clamp(26px,3.2vw,44px);padding-bottom:clamp(22px,2.6vw,34px)}
+.band .top{display:flex;justify-content:space-between;align-items:flex-end;gap:clamp(20px,3vw,44px);flex-wrap:wrap}
+.band .kicker{font-family:var(--mono);font-size:clamp(9px,.8vw,11px);letter-spacing:.26em}
+.band h1{margin:clamp(10px,1.2vw,16px) 0 0;font-size:clamp(38px,5.4vw,86px);font-weight:700;letter-spacing:-.03em;line-height:.96}
+.band .stand{margin:clamp(10px,1.2vw,16px) 0 0;font-family:var(--serif);font-size:clamp(16px,1.4vw,20px);line-height:1.55;color:var(--ink-soft);max-width:64ch}
+.band .counts{font-family:var(--mono);font-size:clamp(9px,.8vw,10.5px);letter-spacing:.14em;line-height:2.1;text-align:right;color:#3d3410;white-space:nowrap}
+.band .legend{display:flex;gap:clamp(14px,2.4vw,30px);margin-top:clamp(16px,2vw,22px);border-top:1px solid rgba(20,18,12,.28);padding-top:13px;font-family:var(--mono);font-size:clamp(8.5px,.78vw,10px);letter-spacing:.14em;flex-wrap:wrap}
+
+/* tab strip */
+.tabs{border-bottom:1px solid var(--rule);background:var(--panel)}
+.tabs .inner{padding-left:0;padding-right:0}
+.tabs-scroll{display:flex;overflow-x:auto;scrollbar-width:none;font-family:var(--mono);font-size:clamp(8.5px,.78vw,10px);letter-spacing:.16em;justify-content:safe center}
+.tabs-scroll::-webkit-scrollbar{display:none}
+.tabs-scroll button{padding:13px clamp(12px,1.6vw,22px);color:var(--text-4);white-space:nowrap;letter-spacing:inherit;min-height:44px}
+.tabs-scroll button:hover{color:var(--text)}
+.tabs-scroll button.active{color:var(--ink);background:var(--stock)}
+
+/* zones */
+.zone{border-bottom:1px solid var(--rule)}
+.zone>.inner{padding-top:clamp(24px,3vw,40px);padding-bottom:clamp(24px,3vw,40px)}
+.zone.alt{background:var(--page-alt)}
+.zmark{font-family:var(--mono);font-size:clamp(8.5px,.8vw,9.5px);letter-spacing:.24em;color:var(--text-4)}
+.zhead{display:flex;justify-content:space-between;align-items:baseline;gap:18px;flex-wrap:wrap}
+.zhead .sub{font-family:var(--mono);font-size:clamp(8.5px,.8vw,9.5px);letter-spacing:.14em;color:var(--text-6)}
+
+/* search */
+.search input{width:100%;max-width:760px;display:block;margin:18px auto 0;background:var(--well);border:1px solid var(--rule-strong);color:var(--text);font-family:var(--mono);font-size:12px;letter-spacing:.08em;padding:14px 16px;min-height:44px}
+.search .zmark{text-align:center}
+.search input::placeholder{color:var(--text-5)}
+.search input:focus{outline:none;border-color:var(--stock)}
+
+/* shelf — responsive grid of film-can panels */
+.shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(480px,100%),1fr));gap:14px;margin-top:20px}
+.shelf-row{display:flex;flex-direction:column;gap:10px;padding:18px;background:var(--panel);border:1px solid var(--rule)}
+.shelf-row:hover{border-color:var(--rule-strong)}
+.shelf-row .head{display:flex;justify-content:space-between;gap:14px;align-items:baseline;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em}
+.shelf-row .head .code{color:var(--stock)}
+.shelf-row .head .emul{color:var(--text-6)}
+.shelf-row .name{font-size:clamp(18px,1.6vw,21px);font-weight:600;background:none;border:none;padding:0;text-align:left;color:var(--text);letter-spacing:-.01em;cursor:pointer}
+.shelf-row .name:hover{color:var(--stock)}
+.shelf-row .desc{font-family:var(--serif);font-size:15.5px;line-height:1.68;color:var(--text-3);flex:1}
+.shelf-row .foot{display:flex;justify-content:space-between;gap:14px;align-items:center;border-top:1px dotted var(--rule-soft);padding-top:12px;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;min-height:34px}
+.shelf-row .foot .meta{color:var(--text-5)}
+.shelf-row .foot .dormant{color:var(--text-5)}
+.built-line{display:flex;flex-wrap:wrap;gap:6px 14px;font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:var(--text-5)}
+.built-line .bl-on{color:var(--stock)}
+.dept-rationale + .built-line{margin-top:14px}
+
+/* department view */
+.dept-wrap{max-width:940px;margin:0 auto}
+.dept-head{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;margin-top:20px;flex-wrap:wrap}
+.dept-head h2{font-size:clamp(26px,2.8vw,38px);font-weight:700;letter-spacing:-.02em;line-height:1.05}
+.dept-head .open-track{font-family:var(--mono);font-size:10px;letter-spacing:.16em;border:1px solid var(--stock);padding:12px 18px;white-space:nowrap;min-height:44px;display:inline-flex;align-items:center}
+.dept-head .open-track.dormant{border-color:var(--rule-strong);color:var(--text-5);pointer-events:none}
+.dept-rationale{margin-top:14px;font-family:var(--serif);font-size:17px;line-height:1.74;color:var(--text-2);max-width:70ch}
+
+.year{margin-top:30px}
+.year-head{display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding-bottom:10px;border-bottom:1px solid var(--rule);flex-wrap:wrap}
+.year-head .yl{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--text-4)}
+.year-head .yt{font-family:var(--mono);font-size:10px;letter-spacing:.14em}
+.y1 .year-head .yt,.y0 .year-head .yt{color:var(--stock)}
+.y2 .year-head .yt{color:var(--daylight)}
+
+.mods{display:flex;flex-direction:column;gap:12px;margin-top:16px}
+.mod summary{display:flex;gap:clamp(12px,1.6vw,18px);align-items:baseline;padding:14px 16px;background:var(--panel);border:1px solid var(--rule);min-height:44px}
+.mod summary:hover,.mod[open] summary{border-color:var(--rule-strong)}
+.mod .mcode{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;width:56px;flex:0 0 56px}
+.y1 .mod .mcode,.y0 .mod .mcode{color:var(--stock)}
+.y2 .mod .mcode{color:var(--daylight)}
+.mod .mtitle{font-size:clamp(15.5px,1.5vw,19px);font-weight:600;flex:1;letter-spacing:-.01em}
+.mod .mmeta{font-family:var(--mono);font-size:9.5px;color:var(--text-5);white-space:nowrap}
+.mod .topics{padding:6px 16px 16px clamp(16px,7vw,90px)}
+.mod .topics li{list-style:none;font-family:var(--serif);font-size:16px;line-height:1.74;color:var(--text-3);padding:9px 0;border-bottom:1px dotted var(--rule-soft)}
+.mod .topics li:last-child{border-bottom:none}
+
+.practicum-row{margin-top:26px;border-top:1px solid var(--rule);padding-top:16px}
+.practicum-row .pl{font-family:var(--mono);font-size:9px;letter-spacing:.22em;color:var(--text-4)}
+.practicum-row .pv{margin-top:10px;font-family:var(--serif);font-size:16px;line-height:1.8;color:var(--text-3);max-width:72ch}
+
+/* search results */
+.result-group{margin-top:24px}
+.result-group .rg-head{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;color:var(--stock)}
+.result-mod{margin-top:12px}
+.result-mod .rm-title{font-size:17px;font-weight:600}
+.result-mod .rm-title .rmc{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;color:var(--text-4);font-weight:400;margin-right:10px}
+.result-mod ul{margin-top:6px}
+.result-mod li{list-style:none;font-family:var(--serif);font-size:15.5px;line-height:1.7;color:var(--text-3);padding:6px 0;border-bottom:1px dotted var(--rule-soft)}
+.result-mod li:last-child{border-bottom:none}
+mark{background:none;color:var(--stock)}
+.no-results{margin-top:20px;font-family:var(--serif);font-size:16px;color:var(--text-3)}
+
+/* footer */
+.endbar{background:var(--page-alt);font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;color:var(--text-5)}
+.endbar .inner{display:flex;justify-content:space-between;gap:18px;padding-top:28px;padding-bottom:28px;flex-wrap:wrap}
+.endbar a{white-space:nowrap}
+
+@media(max-width:760px){
+  :root{--sprocket:12px}
+  .band .top{align-items:flex-start;flex-direction:column}
+  .band .counts{display:flex;gap:16px;text-align:left;line-height:1.6;white-space:normal;flex-wrap:wrap}
+  .tabs-scroll{justify-content:flex-start}
+  .mod .topics{padding-left:16px}
+}
+@media(max-width:420px){
+  .shelf{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="strip">
+  <div class="sprocket"></div>
+  <div class="col">
+
+    <div class="status"><div class="inner">
+      <div class="l"><span class="brand">THE WORLD FILM CONSERVATORY</span><span>CATALOG · ALL DEPARTMENTS</span></div>
+      <div class="r"><span>DUAL EMULSION · 400T / 250D</span><span class="lit" id="exposed-stat">EXPOSED 0/11 TRACKS</span></div>
+    </div></div>
+
+    <div class="band"><div class="inner">
+      <div class="top">
+        <div>
+          <div class="kicker">PROSPECTUS · TWO-YEAR PROGRAM · WORLDWIDE SCOPE MANDATORY</div>
+          <h1>The World Film Conservatory</h1>
+          <p class="stand">A complete film school on the shelf: a mandatory Common Core and ten craft departments, with the world's cinemas — Bombay, Tehran, Hong Kong, Moscow, Copenhagen — taught inside every discipline, never beside it. All eleven tracks are built and readable end to end. The Conservatory is complete.</p>
+        </div>
+        <div class="counts" id="counts"></div>
+      </div>
+      <div class="legend">
+        <span>YEAR 1 · 400T TUNGSTEN</span>
+        <span>YEAR 2 · 250D DAYLIGHT</span>
+        <span>CORE · CONTINUOUS STOCK</span>
+      </div>
+    </div></div>
+
+    <div class="tabs"><div class="inner"><div class="tabs-scroll" id="tabs"></div></div></div>
+
+    <div class="zone search"><div class="inner">
+      <div class="zmark">▸ SEARCH THE CATALOG</div>
+      <input id="search" type="search" placeholder="ALL TOPICS — MONTAGE, RAGA, LED VOLUME, SUBTEXT, WIRE-FU…" aria-label="Search all topics">
+    </div></div>
+
+    <div class="zone" id="shelf-zone"><div class="inner">
+      <div class="zhead">
+        <div class="zmark">▸ THE SHELF · EVERY TRACK</div>
+        <div class="sub" id="shelf-sub"></div>
+      </div>
+      <div class="shelf" id="shelf"></div>
+    </div></div>
+
+    <div class="zone" id="dept-zone"><div class="inner">
+      <div class="zmark" id="dept-mark">▸ DEPARTMENT</div>
+      <div class="dept-wrap" id="view"></div>
+    </div></div>
+
+    <div class="endbar"><div class="inner">
+      <span>CATALOG · DEVELOP AND PRINT</span>
+      <a href="common-core.html">BEGIN · COMMON CORE ↗</a>
+    </div></div>
+
+  </div>
+  <div class="sprocket"></div>
+</div>
+
+<script>
+/* =====================================================================
+   CURRICULUM DATA — ratified structure
+===================================================================== */
+const CURRICULUM = [
+
+{ id:"core", code:"CORE", name:"Common Core", short:"Common Core",
+  rationale:"Taken by every student in every track, both years. The shared cinematic literacy — history, theory, film language, analysis, professional grounding — that lets all ten departments speak one language.",
+  years:[
+    { label:"All Students — Both Years", temp:"PROJECTOR · CONTINUOUS", cls:"y0", modules:[
+      { code:"CC-1", title:"Global Film History (chronological + polycentric)", topics:[
+        "Pre-cinema & the birth of the medium: optical toys, Muybridge, Lumière actualités, Méliès, Edison",
+        "The benshi narrator tradition in Japanese silent exhibition",
+        "Silent-era grammar: Griffith & continuity; German Expressionism; the Soviet montage school",
+        "Coming of sound; studio systems worldwide — Hollywood, Shochiku/Toho, India's studio era, Shanghai",
+        "Post-war ruptures: Italian Neorealism, French New Wave, Japanese New Wave, New German Cinema, New Hollywood",
+        "Indian parallel cinema & popular/masala cinema",
+        "Iranian New Wave; African cinema (Sembène onward) & Nollywood",
+        "Latin American Cinema Novo & Third Cinema",
+        "Hong Kong / Taiwanese / Chinese 'generations'; Korean New Wave",
+        "Scandinavian traditions: Bergman, Dreyer, Dogme 95",
+        "The digital revolution, streaming era & global co-production" ]},
+      { code:"CC-2", title:"Film Theory & Criticism", topics:[
+        "Formalism vs. realism: Eisenstein, Bazin, Kracauer",
+        "Auteur theory & its critiques",
+        "Semiotics; psychoanalytic & feminist film theory; the gaze",
+        "Genre theory",
+        "Montage theory vs. mise-en-scène; apparatus theory",
+        "Third Cinema & post-colonial theory; national cinema debates",
+        "Non-Western aesthetics: mono no aware, ma (negative space), rasa theory in Indian aesthetics" ]},
+      { code:"CC-3", title:"Visual Storytelling & Film Language", topics:[
+        "Shot sizes, angles, the 180-degree rule, screen direction, eyeline",
+        "Mise-en-scène, blocking, composition, the frame",
+        "Continuity vs. discontinuity; montage as meaning; the Kuleshov effect",
+        "The sound–image relationship: added value & synchresis (intro to Chion)",
+        "Point of view, subjectivity, time & ellipsis" ]},
+      { code:"CC-4", title:"Film Analysis Practicum", topics:[
+        "Shot-by-shot & sequence analysis",
+        "Comparative analysis across traditions & eras",
+        "Writing about film; building a critical vocabulary" ]},
+      { code:"CC-5", title:"Professional Foundations", topics:[
+        "Set etiquette, department structure — who does what on set",
+        "Safety, ethics & on-set conduct; unions & guilds",
+        "Copyright, chain of title, basic contracts & rights",
+        "The festival ecosystem & distribution landscape (overview)" ]}
+    ]}
+  ],
+  practicum:["Sequence-analysis portfolio","Comparative world-cinema essay","Crew rotation on cross-department shoots"]
+},
+
+{ id:"dir", code:"DEPT 01", name:"Directing", short:"Directing",
+  rationale:"Organized by the escalating narrative and human problems a director must solve — from the single shot, to the scene, to performance, to the whole film, to personal style.",
+  years:[
+    { label:"Year 1 — Foundations of the Director's Craft", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
+      { code:"D-1", title:"The Director's Role & Vision", topics:[
+        "Interpreting a script; theme, premise & tone",
+        "The director's statement",
+        "From studio-system craftsman to auteur" ]},
+      { code:"D-2", title:"Visual Storytelling & Shot Design", topics:[
+        "Shot-by-shot visualization (the Katz method)",
+        "Storyboards, shot lists & floor plans",
+        "Coverage vs. the designed shot",
+        "The long take vs. montage" ]},
+      { code:"D-3", title:"Staging & Blocking (Mise-en-scène)", topics:[
+        "Blocking actors to the camera; cinematic motion",
+        "Depth staging",
+        "The oner / sequence shot",
+        "Confined-space staging" ]},
+      { code:"D-4", title:"Directing the Camera", topics:[
+        "Lens language",
+        "Camera movement as emotion",
+        "POV & subjectivity",
+        "Composition for meaning" ]},
+      { code:"D-5", title:"Directing Actors I", topics:[
+        "Script analysis for performance: objectives, actions, beats",
+        "Casting",
+        "A shared vocabulary with actors",
+        "Rehearsal technique" ]},
+      { code:"D-6", title:"Scene Craft", topics:[
+        "The dialogue scene",
+        "The action scene",
+        "Transitions",
+        "Rhythm within the scene" ]}
+    ]},
+    { label:"Year 2 — Mastery, Style & the Whole Film", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
+      { code:"D-7", title:"Directing Actors II", topics:[
+        "Working with non-professionals: the Neorealist & Iranian tradition",
+        "Ensemble work & improvisation",
+        "Difficult scenes: intimacy, violence, children, animals" ]},
+      { code:"D-8", title:"Genre & Register", topics:[
+        "Comedy timing",
+        "Horror & suspense: Hitchcockian construction",
+        "The musical",
+        "Action" ]},
+      { code:"D-9", title:"World Directing Traditions & Grammar", topics:[
+        "Ozu's tatami-level grammar & 360-degree space",
+        "Bresson's models",
+        "Soviet intellectual montage",
+        "Bollywood song-sequence direction & picturization",
+        "Hong Kong action direction: the action choreographer, wire-fu & gun-fu staging",
+        "Iranian minimalism",
+        "Dogme 95 constraints" ]},
+      { code:"D-10", title:"Directing Across Departments", topics:[
+        "Leading the DP, designer, editor & composer",
+        "The director–editor relationship",
+        "Previsualization" ]},
+      { code:"D-11", title:"Authorship & Personal Style", topics:[
+        "Developing a signature",
+        "The feature vs. the short",
+        "Adaptation",
+        "Working from personal material" ]},
+      { code:"D-12", title:"The Director in the Industry", topics:[
+        "Pitching; working with producers & studios",
+        "Series / episodic directing",
+        "The director's cut",
+        "Career strategy" ]}
+    ]}
+  ],
+  practicum:["The single shot","The silent scene","The dialogue scene","The emotional climax","Thesis film"]
+},
+
+{ id:"cl", code:"DEPT 02", name:"Cinematography & Lighting", short:"Cine & Lighting",
+  rationale:"Ratified as one unified department — the shared spine locked. Light and lens are taught as inseparable halves of image-making: one progression from the physics of light and optics, through capture, to movement, mood and visual authorship, ending in both the DP's and the gaffer's professional craft.",
+  years:[
+    { label:"Year 1 — Light & Capture: Foundations", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
+      { code:"CL-1", title:"History of the Image & the Departments", topics:[
+        "Evolution of cinematography: film to digital",
+        "The DP's role; camera department hierarchy",
+        "The electric & grip departments; the gaffer's lineage" ]},
+      { code:"CL-2", title:"The Nature of Light", topics:[
+        "Quality: hard vs. soft; intensity; direction; color",
+        "The inverse-square law",
+        "How the eye and the sensor 'see' light" ]},
+      { code:"CL-3", title:"Optics & Lenses", topics:[
+        "Focal length, aperture, depth of field",
+        "Anamorphic vs. spherical; specialty lenses",
+        "Lens character & testing protocols" ]},
+      { code:"CL-4", title:"Exposure & Sensitometry", topics:[
+        "The exposure triangle",
+        "Light measurement: incident & spot metering; the zone system",
+        "Latitude: film stock vs. sensor; over/under-exposure",
+        "False color, waveform & vectorscope" ]},
+      { code:"CL-5", title:"Film & Digital Capture", topics:[
+        "Film stocks & formats: 16mm, 35mm, 65mm/IMAX",
+        "Digital sensors, codecs, RAW, log — taking ownership of your sensor",
+        "Resolution & aspect-ratio choices as storytelling" ]},
+      { code:"CL-6", title:"Lighting Instruments", topics:[
+        "Tungsten, HMI, fluorescent",
+        "LED & the color science of modern fixtures; the RGBWW revolution",
+        "Practicals" ]},
+      { code:"CL-7", title:"Grip, Rigging & Power", topics:[
+        "Flags, nets, diffusion, bounce, cutters",
+        "Stands & rigging",
+        "Electrical distribution, generators & set safety" ]},
+      { code:"CL-8", title:"Foundational Lighting", topics:[
+        "Three-point lighting: key / fill / back",
+        "Motivated lighting; high-key vs. low-key; chiaroscuro",
+        "Shaping the face; negative fill",
+        "Color gels & correction; diffusion & reflection" ]},
+      { code:"CL-9", title:"Composition & Framing", topics:[
+        "The frame; rule of thirds & its alternatives",
+        "Headroom & lookroom",
+        "Aspect ratio as storytelling" ]},
+      { code:"CL-10", title:"Color Science", topics:[
+        "Color temperature & white balance",
+        "Color theory for the image",
+        "ACES & the ASC CDL",
+        "Gel color vs. fixture color" ]}
+    ]},
+    { label:"Year 2 — Movement, Mood & Authorship", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
+      { code:"CL-11", title:"Camera Movement & Support", topics:[
+        "Dolly, crane, Steadicam, gimbal, handheld, drone/aerial",
+        "The moving master",
+        "Movement as emotion" ]},
+      { code:"CL-12", title:"Lighting the Space", topics:[
+        "Interiors, exteriors, day & night, mixed sources",
+        "Large-scale & location lighting; vehicles & soft drops",
+        "Day-for-night" ]},
+      { code:"CL-13", title:"Lighting for Mood & Genre", topics:[
+        "Horror, noir, romance, naturalism",
+        "Lighting skin tones across all complexions",
+        "Period looks" ]},
+      { code:"CL-14", title:"The Visual Concept", topics:[
+        "Building a 'look'; lookbooks & references",
+        "Collaboration with the director & production designer",
+        "Shot listing from the DP's chair",
+        "Contrast ratios & lighting–exposure integration" ]},
+      { code:"CL-15", title:"World Traditions of Image & Light", topics:[
+        "The aesthetics of shadow: Japanese cinema & Tanizaki's influence",
+        "German Expressionist lighting; Rembrandt light; Alton's 'painting with light'",
+        "Hong Kong action cinematography: kinetic camera, under/overcranking",
+        "Indian song-sequence camerawork",
+        "Neorealist image-making",
+        "Contemporary approaches: Deakins, Lubezki, Kaminski" ]},
+      { code:"CL-16", title:"Genre & Format", topics:[
+        "Narrative, documentary, music video, commercial",
+        "Large-format cinematography",
+        "Vertical & mobile cinematography" ]},
+      { code:"CL-17", title:"Virtual Production & Emerging Light", topics:[
+        "LED volumes & emissive screens",
+        "Lighting for green/blue screen & VFX plates",
+        "Previsualization for lighting; digital day-for-night" ]},
+      { code:"CL-18", title:"On-Set Workflow, the Gaffer's Craft & Industry", topics:[
+        "Dailies; the DIT & data management; camera & lighting tests",
+        "Running the electric department; the lighting plan; budgeting light",
+        "Rental houses; the DI / color pipeline",
+        "The ASC & professional path" ]}
+    ]}
+  ],
+  practicum:["Exposure & lens tests","Single-source portrait","Natural-light exercise","Night exterior","Moving-camera scene","Genre-mood lighting exercise","The 'look' project","LED-volume test"]
+},
+
+{ id:"snd", code:"DEPT 03", name:"Sound", short:"Sound",
+  rationale:"Taught as a full pipeline — production recording → post → mix → music — and as theory (Chion). Covers what many schools split into 'Sound Recording & Design' plus 'Composing for Film'.",
+  years:[
+    { label:"Year 1 — Capturing & Understanding Sound", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
+      { code:"S-1", title:"The Physics & Perception of Sound", topics:[
+        "Acoustics; frequency & amplitude",
+        "Psychoacoustics",
+        "Active vs. passive listening" ]},
+      { code:"S-2", title:"Sound Theory", topics:[
+        "Chion's Audio-Vision: added value, synchresis, the acousmatic",
+        "On-screen / off-screen sound",
+        "The three listening modes" ]},
+      { code:"S-3", title:"Production Sound / Location Recording", topics:[
+        "Microphones: types & polar patterns",
+        "The boom operator; lavaliers",
+        "Wild tracks, room tone, timecode, MOS",
+        "The recordist's role on set" ]},
+      { code:"S-4", title:"The Digital Audio Workstation", topics:[
+        "Pro Tools & workflow",
+        "Editing fundamentals",
+        "Sync" ]},
+      { code:"S-5", title:"Dialogue", topics:[
+        "Dialogue editing — the invisible art",
+        "ADR / looping",
+        "Cleaning & smoothing tracks" ]}
+    ]},
+    { label:"Year 2 — Designing, Mixing & Scoring", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
+      { code:"S-6", title:"Sound Design", topics:[
+        "Building soundscapes; the sound-effects library",
+        "Designed vs. recorded FX; worldizing",
+        "The Murch / Burtt / Thom lineage" ]},
+      { code:"S-7", title:"Foley", topics:[
+        "The craft after Jack Foley: footsteps, moves, specifics",
+        "Performing sound" ]},
+      { code:"S-8", title:"The Mix", topics:[
+        "Pre-dub / temp mix; stems; the final dub",
+        "Re-recording mixing",
+        "Dolby Atmos & immersive / surround formats",
+        "M&E and deliverables for international distribution" ]},
+      { code:"S-9", title:"Music for Film I — The Composer's Craft", topics:[
+        "Spotting sessions; working with the director",
+        "Diegetic vs. non-diegetic; screen music",
+        "Leitmotif; temp scores" ]},
+      { code:"S-10", title:"Music for Film II — Traditions & Techniques", topics:[
+        "Orchestral & electronic scoring",
+        "Indian film music: the music director, raga-to-rasa matching, playback singing, pre-recorded song picturization",
+        "Jazz & world-music scoring",
+        "The song vs. the score" ]},
+      { code:"S-11", title:"Sound Aesthetics Across Cinema", topics:[
+        "Silence & ma in Japanese sound design",
+        "Wall-of-sound vs. minimalist approaches",
+        "Dogme 95's diegetic-only rule",
+        "Indian cinema's dense mix" ]},
+      { code:"S-12", title:"The Sound Department & Industry", topics:[
+        "Crew structure & responsibility",
+        "The MPSE / CAS professional path",
+        "Budgeting & scheduling the soundtrack" ]}
+    ]}
+  ],
+  practicum:["Location-recording exercise","Dialogue-edit reel","Foley session","Sound-design 'scene from scratch'","Final-mix project","Scoring to picture"]
+},
+
+{ id:"edit", code:"DEPT 04", name:"Editing & Post", short:"Editing",
+  rationale:"From the theory of the cut, to the mechanics, to the emotional and structural craft, to finishing. Color grading folds in as a Year-2 specialization.",
+  years:[
+    { label:"Year 1 — The Cut", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
+      { code:"E-1", title:"History & Theory of Editing", topics:[
+        "From splicing to non-linear",
+        "Soviet montage theory: Eisenstein's intellectual montage, Pudovkin, Vertov",
+        "The Kuleshov effect",
+        "Continuity editing vs. montage" ]},
+      { code:"E-2", title:"Why Cuts Work", topics:[
+        "Murch's Rule of Six — emotion over technique",
+        "The blink as cut-point",
+        "Eye-trace" ]},
+      { code:"E-3", title:"The NLE & Post Workflow", topics:[
+        "Avid / Premiere / Resolve / Final Cut",
+        "Media management; EDLs; the post pipeline",
+        "Proxies; online / offline" ]},
+      { code:"E-4", title:"Continuity & Coverage", topics:[
+        "Matching action; screen direction",
+        "The match cut; the eyeline",
+        "Assembling from coverage" ]},
+      { code:"E-5", title:"Rhythm & Pacing", topics:[
+        "Tempo",
+        "The montage sequence",
+        "Parallel action & cross-cutting",
+        "The dramatic build" ]}
+    ]},
+    { label:"Year 2 — Shaping the Film", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
+      { code:"E-6", title:"Editing Performance", topics:[
+        "Selecting takes; building a performance",
+        "Reaction shots",
+        "Comedic timing" ]},
+      { code:"E-7", title:"Structure & Storytelling in the Edit", topics:[
+        "The assembly-to-fine-cut journey",
+        "Restructuring in the room; non-linear narrative",
+        "'Saving' a film in the edit" ]},
+      { code:"E-8", title:"Editing by Genre & Form", topics:[
+        "Action: Hong Kong kinetic cutting, undercranking",
+        "Documentary editing: finding story in footage",
+        "The musical / song sequence",
+        "Dialogue-driven drama" ]},
+      { code:"E-9", title:"Sound & Picture", topics:[
+        "Cutting with sound in mind",
+        "The editor–sound designer handoff",
+        "Temp music" ]},
+      { code:"E-10", title:"Color Grading", topics:[
+        "Color theory for grading; primary & secondary correction",
+        "The DI pipeline; ACES / CDL",
+        "Look development; matching & continuity",
+        "The colorist's collaboration with the DP" ]},
+      { code:"E-11", title:"World Editing Traditions", topics:[
+        "The long-take vs. montage debate",
+        "Jump cuts & the French New Wave",
+        "The ellipsis in Ozu & Bresson",
+        "Rhythm in Indian commercial cinema" ]},
+      { code:"E-12", title:"The Editor in the Industry", topics:[
+        "The director–editor relationship",
+        "The ACE path",
+        "VFX & temp handoffs",
+        "Delivery, mastering & DCP" ]}
+    ]}
+  ],
+  practicum:["The Kuleshov exercise","Dialogue-scene cut","Montage sequence","Trailer cut","Color-grade project","Thesis edit"]
+},
+
+{ id:"pd", code:"DEPT 05", name:"Production Design & Art", short:"Prod. Design",
+  rationale:"The visual world-building department — design, set, props, costume, makeup, decoration — from concept to execution, split from Producing per the AFI / La Fémis / Beijing model.",
+  years:[
+    { label:"Year 1 — Foundations of Visual World-Building", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
+      { code:"PD-1", title:"The Designer's Role & Vision", topics:[
+        "Reading the script for design; the visual concept",
+        "Art department hierarchy: designer, art director, set decorator, props, construction" ]},
+      { code:"PD-2", title:"Research & Concept", topics:[
+        "Visual research; mood boards",
+        "Period & cultural accuracy",
+        "Worldbuilding; the design 'look'" ]},
+      { code:"PD-3", title:"Drawing & Visualization", topics:[
+        "Freehand sketching; one- & two-point perspective",
+        "Concept illustration",
+        "Continuity sketches & storyboards" ]},
+      { code:"PD-4", title:"Drafting & Technical Design", topics:[
+        "Ground plans, elevations, sections, scale",
+        "White models",
+        "Digital drafting: CAD / SketchUp" ]},
+      { code:"PD-5", title:"Color, Materials & Texture", topics:[
+        "The design palette",
+        "Materials & finishes",
+        "The emotional language of color & texture" ]},
+      { code:"PD-6", title:"Set Construction & Decoration", topics:[
+        "Building elements; studio vs. location",
+        "Set decoration; greens",
+        "Scenic finishes" ]}
+    ]},
+    { label:"Year 2 — Specialization & Execution", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
+      { code:"PD-7", title:"Costume Design", topics:[
+        "Script breakdown for character",
+        "Silhouette & period; the costume as storytelling",
+        "Sourcing & building; the costume department",
+        "Costume across cultures & eras" ]},
+      { code:"PD-8", title:"Hair & Makeup Design", topics:[
+        "Beauty, period, character & prosthetic/SFX makeup",
+        "Wigs & facial hair; makeup history",
+        "Makeup for all skin tones" ]},
+      { code:"PD-9", title:"Props & Set Dressing", topics:[
+        "Hero props; graphic props",
+        "Weapons & specialty",
+        "The prop master's craft" ]},
+      { code:"PD-10", title:"Design Across Departments", topics:[
+        "Designing for the camera & lens",
+        "Working with the DP & director; color–light interaction",
+        "VFX & virtual-set integration; CGI environments" ]},
+      { code:"PD-11", title:"World Design Traditions", topics:[
+        "Aesthetics of the Japanese domestic space",
+        "Indian production design & the song-sequence set",
+        "Expressionist design",
+        "Period & heritage design across cultures" ]},
+      { code:"PD-12", title:"The Art Department in the Industry", topics:[
+        "Budgeting & scheduling the art department; breakdowns",
+        "The ADG path",
+        "Running a department as art director" ]}
+    ]}
+  ],
+  practicum:["Single-room design","Period set","Character costume & makeup","Full film design package: renderings, plans, models, palette"]
+},
+
+{ id:"prod", code:"DEPT 06", name:"Producing & Production Mgmt", short:"Producing",
+  rationale:"Creative producing plus line producing / production management, organized chronologically along the life-cycle of a production — development to distribution, folding in the film business and festival strategy.",
+  years:[
+    { label:"Year 1 — Development & Physical Production", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
+      { code:"P-1", title:"The Producer's Role & Types", topics:[
+        "Creative producer, executive producer, line producer, UPM",
+        "The development judgment: is this worth your soul, money & time" ]},
+      { code:"P-2", title:"Development", topics:[
+        "Finding & optioning material",
+        "Script development; working with writers",
+        "The pitch; packaging — attaching director & cast" ]},
+      { code:"P-3", title:"Film Finance", topics:[
+        "Studio, equity, debt, pre-sales, gap financing",
+        "Tax incentives & rebates; grants; crowdfunding",
+        "The recoupment waterfall" ]},
+      { code:"P-4", title:"Legal & Rights", topics:[
+        "Copyright & chain of title; options",
+        "Talent & crew contracts; clearances",
+        "E&O insurance; entertainment law" ]},
+      { code:"P-5", title:"Breakdown, Budgeting & Scheduling", topics:[
+        "Script breakdown; above- & below-the-line",
+        "The budget; the shooting schedule; stripboards",
+        "Scheduling & budgeting software" ]},
+      { code:"P-6", title:"Line Producing & Production Management", topics:[
+        "The UPM / line-producer craft",
+        "Call sheets, movement orders, production paperwork",
+        "Managing cast & crew; locations & permits; logistics" ]}
+    ]},
+    { label:"Year 2 — From Set to Market", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
+      { code:"P-7", title:"Physical Production Management", topics:[
+        "Running the set; the AD department relationship",
+        "Contingency & problem-solving",
+        "Cost reporting; safety & insurance on set" ]},
+      { code:"P-8", title:"Post-Production Management", topics:[
+        "Post schedules & budgets",
+        "Delivery requirements",
+        "Managing the post pipeline" ]},
+      { code:"P-9", title:"Marketing & Distribution", topics:[
+        "Theatrical, streaming, TV, VOD, international sales",
+        "The sales agent; positioning; the trailer",
+        "Publicity; audience & outreach" ]},
+      { code:"P-10", title:"Festivals & the Circuit", topics:[
+        "Festival strategy & selection",
+        "Premieres & markets: Cannes, Berlin, Sundance, Toronto, Busan",
+        "Acquisitions; self-distribution" ]},
+      { code:"P-11", title:"Global Production Systems", topics:[
+        "Studio systems worldwide",
+        "Co-productions & treaties",
+        "The Indian / Nigerian / Korean / Chinese industry models",
+        "Public film funds (CNC and peers)" ]},
+      { code:"P-12", title:"Producing for Television & New Media", topics:[
+        "The series producer / showrunner system",
+        "Streaming commissioning",
+        "Licensing & syndication" ]}
+    ]}
+  ],
+  practicum:["Development slate","Budget & schedule a short","Produce a cross-department film","Festival & distribution plan"]
+},
+
+{ id:"write", code:"DEPT 07", name:"Screenwriting", short:"Screenwriting",
+  rationale:"From story fundamentals through advanced and alternative structures and global storytelling forms — teaching multiple paradigms and their critiques, never a single formula.",
+  years:[
+    { label:"Year 1 — Story Fundamentals", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
+      { code:"W-1", title:"The Elements of Story", topics:[
+        "Character, desire & objective, conflict, stakes, theme, premise",
+        "Aristotle: beginning, middle, end" ]},
+      { code:"W-2", title:"Structure I", topics:[
+        "The three-act paradigm: inciting incident, plot points, midpoint, climax",
+        "McKee's five-part design",
+        "The beat sheet" ]},
+      { code:"W-3", title:"Character", topics:[
+        "Protagonist & antagonist; the arc",
+        "Want vs. need; backstory",
+        "Characterization vs. true character" ]},
+      { code:"W-4", title:"Scene Craft", topics:[
+        "The scene as a unit",
+        "Turning points; subtext",
+        "Entrances & exits" ]},
+      { code:"W-5", title:"Dialogue", topics:[
+        "Voice; subtext; exposition",
+        "Dialogue as verbal action",
+        "Silence & the visual alternative to dialogue" ]},
+      { code:"W-6", title:"The Short Film Script", topics:[
+        "Economy",
+        "The contained idea" ]}
+    ]},
+    { label:"Year 2 — Advanced, Alternative & Global Forms", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
+      { code:"W-7", title:"Structure II", topics:[
+        "Alternative & non-linear structures",
+        "Archplot / Miniplot / Antiplot — the story triangle",
+        "The Hero's Journey & its critiques",
+        "Truby's 22 steps; multi-protagonist & network narratives" ]},
+      { code:"W-8", title:"Genre", topics:[
+        "The conventions & subversions of each genre",
+        "Genre-blending" ]},
+      { code:"W-9", title:"Global & Regional Story Forms", topics:[
+        "Indian masala structure: integrated genre-blending, song placement, the interval, prestige masala",
+        "The song as narrative accelerator & internal monologue",
+        "The Japanese kishōtenketsu four-part structure",
+        "Melodrama traditions; the telenovela; anime narrative forms" ]},
+      { code:"W-10", title:"Adaptation", topics:[
+        "From novel, story & true events",
+        "Rights & fidelity" ]},
+      { code:"W-11", title:"The Feature & the Rewrite", topics:[
+        "Outlining; the treatment; drafting",
+        "The rewrite; notes & development" ]},
+      { code:"W-12", title:"Writing for Television & the Room", topics:[
+        "The pilot; the series bible",
+        "The writers' room; episodic vs. serialized",
+        "The staff-writer path; the WGA" ]}
+    ]}
+  ],
+  practicum:["Logline & treatment","Short script","Scene portfolio","Feature first act","Feature or pilot"]
+},
+
+{ id:"act", code:"DEPT 08", name:"Screen Acting", short:"Acting",
+  rationale:"Organized by 'method school' — a survey of the major techniques — then by camera-specific application and the business. The pedagogy of the actor's own instrument.",
+  years:[
+    { label:"Year 1 — The Instrument & the Methods", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
+      { code:"A-1", title:"Foundations", topics:[
+        "Relaxation, concentration, observation — the actor's instrument",
+        "Living truthfully under imaginary circumstances" ]},
+      { code:"A-2", title:"The Stanislavski System", topics:[
+        "Objectives & actions; the 'magic if'",
+        "Given circumstances; emotional memory",
+        "Units & beats" ]},
+      { code:"A-3", title:"The American Methods", topics:[
+        "Strasberg: affective / emotional memory",
+        "Adler: imagination & given circumstances",
+        "Meisner: repetition, listening, the reality of doing" ]},
+      { code:"A-4", title:"Movement & Physical Approaches", topics:[
+        "Michael Chekhov: the psychological gesture",
+        "Laban; Viewpoints",
+        "Mask & neutral mask" ]},
+      { code:"A-5", title:"Voice & Speech", topics:[
+        "Breath, resonance, articulation; Linklater",
+        "Accents & dialects; the general accent" ]},
+      { code:"A-6", title:"Scene Study & Script Analysis", topics:[
+        "Analyzing a scene for action",
+        "Building a role from text" ]}
+    ]},
+    { label:"Year 2 — Acting for the Camera & the Profession", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
+      { code:"A-7", title:"On-Camera Technique", topics:[
+        "The difference from stage: scale & truthfulness for the lens",
+        "Hitting marks, eyelines, continuity for the actor",
+        "Working with coverage" ]},
+      { code:"A-8", title:"Building a Character", topics:[
+        "Physical & vocal transformation",
+        "Backstory",
+        "The 'golden box' of blended techniques" ]},
+      { code:"A-9", title:"Genre & Style Acting", topics:[
+        "Comedy; heightened & classical text; period",
+        "Action & physical acting",
+        "Motion capture / performance capture" ]},
+      { code:"A-10", title:"Advanced Scene Work", topics:[
+        "Intimacy & intimacy coordination",
+        "Violence & stage combat",
+        "Emotional extremes; working with non-actors & children" ]},
+      { code:"A-11", title:"Global Performance Traditions", topics:[
+        "Stylization in Japanese & Indian screen performance",
+        "Melodrama vs. naturalism across cinemas",
+        "The Neorealist / Iranian non-professional tradition",
+        "Kabuki & Noh influence" ]},
+      { code:"A-12", title:"The Business of Acting", topics:[
+        "Auditioning & self-tapes; cold reading",
+        "The demo reel; agents & casting",
+        "On-set conduct; the sustainable career" ]}
+    ]}
+  ],
+  practicum:["Repetition exercises","Monologue","Two-person scene","On-camera reel","Audition technique"]
+},
+
+{ id:"doc", code:"DEPT 09", name:"Documentary", short:"Documentary",
+  rationale:"Its own track — organized by the modes of documentary and the specific ethical and production realities of non-fiction.",
+  years:[
+    { label:"Year 1 — The Non-Fiction Foundation", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
+      { code:"DOC-1", title:"History & Traditions", topics:[
+        "Flaherty; Grierson & the British movement",
+        "The city symphony; Vertov's kino-pravda",
+        "Propaganda & the wartime documentary" ]},
+      { code:"DOC-2", title:"The Modes (Nichols)", topics:[
+        "Poetic, expository, observational, participatory, reflexive, performative",
+        "How films mix modes — the dominant mode" ]},
+      { code:"DOC-3", title:"Direct Cinema vs. Cinéma Vérité", topics:[
+        "Observational fly-on-the-wall: Wiseman, Pennebaker, the Maysles",
+        "Participatory & interactive: Rouch & Morin's Chronicle of a Summer",
+        "Portable sync-sound history" ]},
+      { code:"DOC-4", title:"Research & Development", topics:[
+        "Finding the story; access",
+        "The treatment; funding & grants; the proposal" ]},
+      { code:"DOC-5", title:"Documentary Production", topics:[
+        "Shooting real events; the small crew",
+        "Interview craft; vérité shooting",
+        "Archival & reenactment" ]}
+    ]},
+    { label:"Year 2 — Authorship, Ethics & Form", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
+      { code:"DOC-6", title:"Documentary Editing", topics:[
+        "Finding structure in footage",
+        "Building character & arc from reality",
+        "The ethics of the edit" ]},
+      { code:"DOC-7", title:"Values & Ethics", topics:[
+        "Truthfulness, consent, representation",
+        "Responsibility to subjects",
+        "The filmmaker's presence & intervention" ]},
+      { code:"DOC-8", title:"Authorship & Voice", topics:[
+        "The essay film",
+        "The personal / first-person documentary",
+        "Reflexivity" ]},
+      { code:"DOC-9", title:"Forms & Platforms", topics:[
+        "The feature doc; the series; short-form",
+        "Interactive / webdoc",
+        "The hybrid doc-fiction" ]},
+      { code:"DOC-10", title:"World Documentary", topics:[
+        "Third Cinema & militant documentary",
+        "The ethnographic tradition & its critique",
+        "Regional non-fiction movements" ]},
+      { code:"DOC-11", title:"Docs in the Industry", topics:[
+        "The festival & streaming market for documentary",
+        "Pitching forums",
+        "Distribution & impact campaigns" ]}
+    ]}
+  ],
+  practicum:["The observational portrait","The interview film","The personal essay","Thesis documentary"]
+},
+
+{ id:"av", code:"DEPT 10", name:"Animation & VFX", short:"Anim & VFX",
+  rationale:"Combined track — both are pipeline-based crafts. From principles, through 2D / 3D / stop-motion, to the VFX pipeline and virtual production; traditional and computer-based techniques together.",
+  years:[
+    { label:"Year 1 — Principles & Craft", temp:"3200K · TUNGSTEN", cls:"y1", modules:[
+      { code:"AV-1", title:"History & Principles of Animation", topics:[
+        "The 12 principles",
+        "From optical toys through cel, Disney, anime, Eastern European & computer animation" ]},
+      { code:"AV-2", title:"Drawing & Design for Animation", topics:[
+        "Gesture; the character model",
+        "Storyboarding; the animatic" ]},
+      { code:"AV-3", title:"2D Animation", topics:[
+        "Traditional hand-drawn; digital 2D",
+        "The walk cycle",
+        "Timing & spacing" ]},
+      { code:"AV-4", title:"Stop-Motion", topics:[
+        "Puppets, sets, replacement animation",
+        "Craft traditions: Eastern European, Aardman" ]},
+      { code:"AV-5", title:"3D / CGI Fundamentals", topics:[
+        "Modeling; texturing & shading; rigging",
+        "The CG pipeline: Maya / Blender / Houdini intro" ]},
+      { code:"AV-6", title:"Character Animation", topics:[
+        "Performance; acting for animators",
+        "Lip sync" ]}
+    ]},
+    { label:"Year 2 — The VFX Pipeline & Production", temp:"5600K · DAYLIGHT", cls:"y2", modules:[
+      { code:"AV-7", title:"The VFX Pipeline", topics:[
+        "Previz; plates",
+        "Matchmoving & tracking",
+        "The shot workflow" ]},
+      { code:"AV-8", title:"Compositing", topics:[
+        "Node-based compositing (Nuke)",
+        "Keying & roto; layering; grading",
+        "Integration of CG into live action" ]},
+      { code:"AV-9", title:"Simulation & Effects", topics:[
+        "Particles & dynamics",
+        "Fluids, smoke, fire",
+        "Destruction (Houdini)" ]},
+      { code:"AV-10", title:"Lighting & Rendering for CG", topics:[
+        "CG lighting; rendering",
+        "Matte painting",
+        "Photorealistic integration" ]},
+      { code:"AV-11", title:"Virtual Production", topics:[
+        "LED volumes; real-time engines (Unreal)",
+        "Digital humans",
+        "On-set virtual production — the convergence with cinematography & lighting" ]},
+      { code:"AV-12", title:"Animation / VFX in the Industry", topics:[
+        "The studio pipeline & roles; the demo reel",
+        "Supervising; budgeting VFX",
+        "Global animation industries: anime studios, Indian & Chinese VFX houses" ]}
+    ]}
+  ],
+  practicum:["The animatic","A 2D exercise","A stop-motion short","A CG shot","A full VFX shot with breakdown"]
+}
+];
+
+/* =====================================================================
+   ROUTING — track pages live as flat files beside this catalog.
+   Drop a new track file into the directory and (when hosted) the
+   shelf detects it and lights the link automatically.
+===================================================================== */
+const FILES = {
+  core:'common-core.html',
+  dir:'directing.html',
+  cl:'cinematography-lighting.html',
+  snd:'sound.html',
+  edit:'editing.html',
+  pd:'production-design.html',
+  prod:'producing.html',
+  write:'screenwriting.html',
+  act:'acting.html',
+  doc:'documentary.html',
+  av:'animation-vfx.html'
+};
+const BUILT = { core:true, write:true, dir:true, cl:true, snd:true, edit:true, pd:true, prod:true, act:true, doc:true, av:true };   /* shipped tracks; fetch check upgrades the rest */
+
+/* per-track exposure — what is actually on the shelf, counted from the built files */
+const STATS = {
+  core:{ch:30,films:190,res:160,line:'DEVELOP AND PRINT'},
+  write:{ch:33,films:103,res:165,line:'DEVELOP AND PRINT'},
+  dir:{ch:48,films:175,res:242,line:'DEVELOP AND PRINT'},
+  cl:{ch:62,films:187,res:310,line:'DEVELOP AND PRINT'},
+  snd:{ch:39,films:117,res:195,line:'ROLL THE FINAL, KEEP THE STEMS'},
+  edit:{ch:42,films:126,res:210,line:'LOCK IT, DELIVER IT'},
+  pd:{ch:37,films:111,res:185,line:'DESIGN IT, BUILD IT, STRIKE IT'},
+  prod:{ch:36,films:108,res:180,line:'SAY YES CAREFULLY, THEN FINISH IT'},
+  act:{ch:37,films:111,res:185,line:'DO THE WORK, LET THE REST GO'},
+  doc:{ch:31,films:93,res:155,line:'ASK THE QUESTION, THEN MAKE THE FILM'},
+  av:{ch:41,films:123,res:205,line:'WEIGHT, TIMING, AND THE AUDIENCE BELIEVING'}
+};
+function statLine(id){
+  const s=STATS[id];if(!s)return '';
+  return `<div class="built-line"><span class="bl-on">EXPOSED</span><span>${s.ch} CHAPTERS</span><span>${s.films} SCREENING-ROOM FILMS</span><span>${s.res} RESOURCES</span></div>`;
+}
+
+const tabsEl=document.getElementById('tabs');
+const shelfEl=document.getElementById('shelf');
+const viewEl=document.getElementById('view');
+const deptMark=document.getElementById('dept-mark');
+const searchEl=document.getElementById('search');
+let activeId='core';
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+function counts(d){let m=0,t=0;d.years.forEach(y=>y.modules.forEach(x=>{m++;t+=x.topics.length;}));return {m,t};}
+
+function renderCounts(){
+  let mods=0,tops=0;
+  CURRICULUM.forEach(d=>{const c=counts(d);mods+=c.m;tops+=c.t;});
+  let chs=0,flm=0;
+  Object.keys(STATS).forEach(k=>{if(BUILT[k]){chs+=STATS[k].ch;flm+=STATS[k].films;}});
+  document.getElementById('counts').innerHTML=
+    `<div>${CURRICULUM.length-1} DEPARTMENTS + CORE</div><div>${mods} MODULES</div><div>${tops} TOPICS</div><div>${chs} CHAPTERS BUILT</div><div>${flm} FILMS SCREENED</div><div>2 YEARS</div>`;
+  const built=Object.keys(BUILT).filter(k=>BUILT[k]).length;
+  document.getElementById('shelf-sub').textContent=`${CURRICULUM.length} TRACKS · ${mods} MODULES · ${built} IN THE CAN`;
+}
+function renderExposed(){
+  const n=Object.keys(BUILT).filter(k=>BUILT[k]).length;
+  document.getElementById('exposed-stat').textContent=`EXPOSED ${n}/${CURRICULUM.length} TRACKS`;
+}
+
+function renderTabs(){
+  tabsEl.innerHTML=CURRICULUM.map(d=>
+    `<button data-id="${d.id}" class="${d.id===activeId?'active':''}">${d.id==='core'?'CORE':d.code.replace('DEPT ','D-')+' '+d.short.toUpperCase()}</button>`).join('');
+}
+tabsEl.addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  activeId=b.dataset.id;searchEl.value='';renderTabs();renderDept();
+  document.getElementById('dept-zone').scrollIntoView({block:'start'});
+});
+
+function statusHTML(d){
+  const f=FILES[d.id];
+  return BUILT[d.id]
+    ? `<a href="${f}">IN THE CAN ↗</a>`
+    : `<span class="dormant">IN PRODUCTION</span>`;
+}
+
+function renderShelf(){
+  shelfEl.innerHTML=CURRICULUM.map(d=>{
+    const c=counts(d);
+    return `<div class="shelf-row">
+      <div class="head"><span class="code">${d.code}</span><span class="emul">${d.id==='core'?'CONTINUOUS':'400T / 250D'}</span></div>
+      <button class="name" data-id="${d.id}">${esc(d.name)}</button>
+      <p class="desc">${esc(d.rationale)}</p>
+      ${BUILT[d.id]?statLine(d.id):''}
+      <div class="foot"><span class="meta">${c.m} MODULES · ${c.t} TOPICS</span><span>${statusHTML(d)}</span></div>
+    </div>`;}).join('');
+}
+shelfEl.addEventListener('click',e=>{
+  const b=e.target.closest('.name');if(!b)return;
+  activeId=b.dataset.id;searchEl.value='';renderTabs();renderDept();
+  document.getElementById('dept-zone').scrollIntoView({block:'start'});
+});
+
+function tempStamp(y){
+  if(y.cls==='y1')return '400T TUNGSTEN';
+  if(y.cls==='y2')return '250D DAYLIGHT';
+  return 'CONTINUOUS STOCK';
+}
+
+function renderDept(){
+  const d=CURRICULUM.find(x=>x.id===activeId);
+  deptMark.textContent=`▸ DEPARTMENT · ${d.name.toUpperCase()}`;
+  let html=`<div class="dept-head">
+      <h2>${esc(d.name)}</h2>
+      ${BUILT[d.id]
+        ? `<a class="open-track" href="${FILES[d.id]}">OPEN TRACK ↗</a>`
+        : `<span class="open-track dormant">IN PRODUCTION</span>`}
+    </div>
+    <p class="dept-rationale">${esc(d.rationale)}</p>
+    ${BUILT[d.id]?statLine(d.id):''}`;
+  d.years.forEach(y=>{
+    html+=`<div class="year ${y.cls}">
+      <div class="year-head"><span class="yl">${esc(y.label).toUpperCase()}</span><span class="yt">${tempStamp(y)}</span></div>
+      <div class="mods">`+
+      y.modules.map(m=>`<details class="mod">
+        <summary><span class="mcode">${m.code}</span><span class="mtitle">${esc(m.title)}</span><span class="mmeta">${m.topics.length} TOPICS</span></summary>
+        <ul class="topics">${m.topics.map(t=>`<li>${esc(t)}</li>`).join('')}</ul>
+      </details>`).join('')+
+      `</div></div>`;
+  });
+  if(d.practicum){
+    html+=`<div class="practicum-row"><div class="pl">▸ PRACTICUM THREADS</div><div class="pv">${d.practicum.map(esc).join(' · ')}</div></div>`;
+  }
+  viewEl.innerHTML=html;
+}
+
+function renderSearch(q){
+  const query=q.toLowerCase();
+  deptMark.textContent=`▸ SEARCH · “${esc(q.toUpperCase())}”`;
+  let html='';
+  CURRICULUM.forEach(d=>{
+    let groups='';
+    d.years.forEach(y=>{
+      y.modules.forEach(m=>{
+        const matched=m.topics.filter(t=>t.toLowerCase().includes(query));
+        const titleHit=m.title.toLowerCase().includes(query);
+        if(matched.length||titleHit){
+          const shown=matched.length?matched:m.topics;
+          groups+=`<div class="result-mod">
+            <div class="rm-title"><span class="rmc">${m.code} · ${tempStamp(y)}</span>${hl(m.title,query)}</div>
+            <ul>${shown.map(t=>`<li>${hl(t,query)}</li>`).join('')}</ul>
+          </div>`;
+        }
+      });
+    });
+    if(groups)html+=`<div class="result-group"><div class="rg-head">${d.code} · ${esc(d.name).toUpperCase()} ${BUILT[d.id]?`— <a href="${FILES[d.id]}">OPEN ↗</a>`:''}</div>${groups}</div>`;
+  });
+  viewEl.innerHTML=html||`<p class="no-results">Nothing in the catalog matches. Try a broader reel — “montage”, “song”, “light”.</p>`;
+}
+function hl(t,q){
+  const s=esc(t);const i=t.toLowerCase().indexOf(q);
+  if(i<0)return s;
+  return esc(t.slice(0,i))+'<mark>'+esc(t.slice(i,i+q.length))+'</mark>'+esc(t.slice(i+q.length));
+}
+searchEl.addEventListener('input',()=>{
+  const q=searchEl.value.trim();
+  if(q.length>=2)renderSearch(q);
+  else{deptMark.textContent=`▸ DEPARTMENT · ${CURRICULUM.find(x=>x.id===activeId).name.toUpperCase()}`;renderDept();}
+});
+
+/* progressive route detection — lights shelf links when files appear */
+if(location.protocol.startsWith('http')){
+  Object.entries(FILES).forEach(([id,f])=>{
+    if(BUILT[id])return;
+    fetch(f,{method:'HEAD'}).then(r=>{
+      if(r.ok){BUILT[id]=true;renderShelf();renderExposed();if(activeId===id&&!searchEl.value.trim())renderDept();}
+    }).catch(()=>{});
+  });
+}
+
+renderCounts();renderExposed();renderTabs();renderShelf();renderDept();
+</script>
+</body>
+</html>
